@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Vape Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            justify-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.1), transparent);
+            z-index: 1;
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            animation: pulse 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .product-specs {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .price-current {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27ae60;
+            text-align: center;
+        }
+
+        .price-original {
+            font-size: 1.1rem;
+            color: #95a5a6;
+            text-decoration: line-through;
+            margin-right: 0.5rem;
+            text-align: center;
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .category-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .product-card:hover {
+                transform: none;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            }
+            
+            .product-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                max-width: 400px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+
+            .product-card {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+
+            .product-info {
+                padding: 1rem;
+            }
+
+            .product-title {
+                font-size: 1.1rem;
+            }
+
+            .product-specs {
+                font-size: 0.85rem;
+            }
+
+            .price-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .buy-button {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 1rem 0;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                max-width: 350px;
+            }
+
+            .product-image {
+                height: 180px;
+            }
+
+            .product-info {
+                padding: 0.8rem;
+            }
+
+            .product-title {
+                font-size: 1rem;
+            }
+
+            .price-current {
+                font-size: 1.3rem;
+            }
+
+            .category-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .offer-badge {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 1200px;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1600px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌟 VAPE STORE PREMIUM 🌟</h1>
+        <p>Los mejores productos de vapeo al mejor precio</p>
+    </div>
+
+    <div class="container">
+        <!-- Dispositivos Desechables Premium -->
+        <div class="category-section">
+            <h2 class="category-title">💨 DISPOSITIVOS DESECHABLES PREMIUM</h2>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/1.png" alt="Bang Leader 45k">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Bang Leader 45k</h3>
+                        <p class="product-specs">• 45,000 puffs<br>• Sabores: Watermelon Ice, Strawberry, Mango<br>• Pantalla digital<br>• Batería de larga duración</p>
+                        <div class="price-section">
+                            <span class="price-current">€7,85</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="2.png" alt="Bood Twins 46K">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Bood Twins 46K</h3>
+                        <p class="product-specs">• 46,000 puffs<br>• Diseño dual premium<br>• Tecnología mesh coil<br>• Sabores intensos</p>
+                        <div class="price-section">
+                            <span class="price-current">€8,85</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="offer-badge">OFERTA</div>
+                    <div class="product-image">
+                        <img src="/3.png" alt="Eb Desire Dynamo Pro 20k">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Eb Desire Dynamo Pro 20k</h3>
+                        <p class="product-specs">• 20,000 puffs<br>• Control de flujo de aire<br>• Pantalla LED<br>• Carga rápida USB-C</p>
+                        <div class="price-section">
+                            <div>
+                                <span class="price-original">€8,05</span>
+                                <span class="price-current">€7,35</span>
+                            </div>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/4.png" alt="EB DESIRE TWINS 30K">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">EB DESIRE TWINS 30K</h3>
+                        <p class="product-specs">• 30,000 puffs<br>• Sistema dual crystal<br>• Tecnología avanzada<br>• Diseño ergonómico</p>
+                        <div class="price-section">
+                            <span class="price-current">€8,35</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Dispositivos Inteligentes -->
+        <div class="category-section">
+            <div class="products-grid">
+
+                <div class="product-card">
+                    <div class="offer-badge">OFERTA</div>
+                    <div class="product-image">
+                        <img src="/5.png" alt="Posh Pro Max 30k">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Posh Pro Max 30k</h3>
+                        <p class="product-specs">• 30,000 puffs<br>• Pantalla smartwatch<br>• Funciones inteligentes<br>• Conectividad avanzada</p>
+                        <div class="price-section">
+                            <div>
+                                <span class="price-original">€10,35</span>
+                                <span class="price-current">€8,85</span>
+                            </div>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/6.png" alt="Razz Bar 30K">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Razz Bar 30K</h3>
+                        <p class="product-specs">• 30,000 puffs<br>• Diseño cyberpunk<br>• Efectos de iluminación<br>• Sabores únicos</p>
+                        <div class="price-section">
+                            <span class="price-current">€9,15</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="offer-badge">OFERTA</div>
+                    <div class="product-image">
+                        <img src="/7.png" alt="Tesla XT-40000">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Tesla XT-40000</h3>
+                        <p class="product-specs">• 40,000 puffs<br>• Tecnología Tesla<br>• Pantalla OLED<br>• Carga súper rápida</p>
+                        <div class="price-section">
+                            <div>
+                                <span class="price-original">€9,85</span>
+                                <span class="price-current">€8,85</span>
+                            </div>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Serie VapSolo -->
+        <div class="category-section">
+            <h2 class="category-title">🎯 SERIE VAPSOLO - MULTI SABORES</h2>
+            <div class="products-grid">
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/8.png" alt="Vapsolo 15K">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vapsolo 15K</h3>
+                        <p class="product-specs">• 15,000 puffs<br>• Múltiples sabores<br>• Diseño transparente<br>• Mesh coil premium</p>
+                        <div class="price-section">
+                            <span class="price-current">€8,35</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/9.png" alt="Vapsolo 40k">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vapsolo 40k</h3>
+                        <p class="product-specs">• 40,000 puffs<br>• Sabores premium<br>• Batería extendida<br>• Control de flujo</p>
+                        <div class="price-section">
+                            <span class="price-current">€9,35</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/10.png" alt="Vapsolo Quads 80k">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vapsolo Quads 80k (4 en 1)</h3>
+                        <p class="product-specs">• 80,000 puffs total<br>• 4 dispositivos en 1<br>• Sabores rotativos<br>• Máximo rendimiento</p>
+                        <div class="price-section">
+                            <span class="price-current">€10,20</span>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="offer-badge">OFERTA</div>
+                    <div class="product-image">
+                        <img src="/11.png" alt="Vapsolo Triple 60k">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vapsolo Triple 60k</h3>
+                        <p class="product-specs">• 60,000 puffs<br>• 3 en 1 ajustable<br>• 15 sabores disponibles<br>• Tecnología triple</p>
+                        <div class="price-section">
+                            <div>
+                                <span class="price-original">€10,20</span>
+                                <span class="price-current">€9,70</span>
+                            </div>
+                            <button class="buy-button">Comprar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h3>🚀 Tu Tienda de Confianza para Vapeo Premium</h3>
+        <p>Productos originales • Envío rápido • Garantía de calidad</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
+            ⚠️ Producto destinado exclusivamente para adultos mayores de 18 años
+        </p>
+    </div>
+
+    <script>
+        // Animaciones y efectos interactivos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de aparición progresiva
+            const cards = document.querySelectorAll('.product-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Efecto de botones de compra
+            document.querySelectorAll('.buy-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.innerHTML = '✓ Agregado';
+                    this.style.background = 'linear-gradient(135deg, #00b894, #55a3ff)';
+                    setTimeout(() => {
+                        this.innerHTML = 'Comprar Ahora';
+                        this.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                    }, 2000);
+                });
+            });
+
+            // Efecto parallax suave en el header (solo en desktop)
+            if (window.innerWidth > 768) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const header = document.querySelector('.header');
+                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
