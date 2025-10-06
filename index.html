@@ -160,12 +160,12 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.5rem;
             margin-top: 1rem;
         }
 
         .price-current {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #27ae60;
             text-align: center;
@@ -177,27 +177,6 @@
             text-decoration: line-through;
             margin-right: 0.5rem;
             text-align: center;
-        }
-
-        .buy-button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            width: 100%;
-            max-width: 200px;
-        }
-
-        .buy-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         .footer {
@@ -224,6 +203,106 @@
             margin-bottom: 1.5rem;
             text-align: center;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilos para Sección de Envíos */
+        .shipping-section {
+            width: 100%;
+            max-width: 1000px;
+            margin: 4rem auto 2rem;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .shipping-title {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .shipping-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .shipping-card {
+            background: white;
+            border: 3px solid #e1e8ed;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shipping-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .shipping-card.recommended {
+            border-color: #667eea;
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .shipping-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .shipping-method {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.8rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shipping-description {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .shipping-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 1rem;
+        }
+
+        .shipping-note {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-top: 1.5rem;
+            font-style: italic;
         }
 
         @media (hover: none) and (pointer: coarse) {
@@ -283,13 +362,31 @@
                 gap: 0.5rem;
             }
 
-            .buy-button {
-                width: 100%;
-                padding: 10px;
-            }
-
             .category-title {
                 font-size: 1.5rem;
+            }
+
+            .shipping-section {
+                padding: 2rem 1rem;
+                margin: 3rem 1rem 1rem;
+            }
+
+            .shipping-title {
+                font-size: 1.8rem;
+            }
+
+            .shipping-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .shipping-method {
+                font-size: 1.1rem;
+                min-height: auto;
+            }
+
+            .shipping-price {
+                font-size: 1.7rem;
             }
         }
 
@@ -325,7 +422,7 @@
             }
 
             .price-current {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
 
             .category-title {
@@ -407,10 +504,8 @@
                         <h3 class="product-title">Eb Desire Dynamo Pro 20k</h3>
                         <p class="product-specs">• 20,000 puffs<br>• Control de flujo de aire<br>• Pantalla LED<br>• Carga rápida USB-C</p>
                         <div class="price-section">
-                            <div>
-                                <span class="price-original">€8,05</span>
-                                <span class="price-current">€7,35</span>
-                            </div>
+                            <span class="price-original">€8,05</span>
+                            <span class="price-current">€7,35</span>
                         </div>
                     </div>
                 </div>
@@ -427,9 +522,10 @@
                         </div>
                     </div>
                 </div>
-                 <div class="product-card">
+
+                <div class="product-card">
                     <div class="product-image">
-                        <img src="12.png" alt="EB DESIRE TWINS 30K">
+                        <img src="12.png" alt="TASTEFOG TRIPLE 60K">
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">TASTEFOG TRIPLE 60K</h3>
@@ -456,10 +552,8 @@
                         <h3 class="product-title">Posh Pro Max 30k</h3>
                         <p class="product-specs">• 30,000 puffs<br>• Pantalla smartwatch<br>• Funciones inteligentes<br>• Conectividad avanzada</p>
                         <div class="price-section">
-                            <div>
-                                <span class="price-original">€10,35</span>
-                                <span class="price-current">€8,85</span>
-                            </div>
+                            <span class="price-original">€10,35</span>
+                            <span class="price-current">€8,85</span>
                         </div>
                     </div>
                 </div>
@@ -486,10 +580,8 @@
                         <h3 class="product-title">Tesla XT-40000</h3>
                         <p class="product-specs">• 40,000 puffs<br>• Tecnología Tesla<br>• Pantalla OLED<br>• Carga súper rápida</p>
                         <div class="price-section">
-                            <div>
-                                <span class="price-original">€9,85</span>
-                                <span class="price-current">€8,85</span>
-                            </div>
+                            <span class="price-original">€9,85</span>
+                            <span class="price-current">€8,85</span>
                         </div>
                     </div>
                 </div>
@@ -550,16 +642,38 @@
                         <h3 class="product-title">Vapsolo Triple 60k</h3>
                         <p class="product-specs">• 60,000 puffs<br>• 3 en 1 ajustable<br>• 15 sabores disponibles<br>• Tecnología triple</p>
                         <div class="price-section">
-                            <div>
-                                <span class="price-original">€10,20</span>
-                                <span class="price-current">€9,70</span>
-                            </div>
+                            <span class="price-original">€10,20</span>
+                            <span class="price-current">€9,70</span>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
+    </div>
+
+    <!-- Sección de Métodos de Envío -->
+    <div class="shipping-section">
+        <h2 class="shipping-title">📦 MÉTODOS DE ENVÍO</h2>
+        <div class="shipping-options">
+            
+            <div class="shipping-card">
+                <div class="shipping-icon">🚚</div>
+                <h3 class="shipping-method">Pago Transferencia Envío a Domicilio</h3>
+                <p class="shipping-description">Se paga antes de enviar el pedido</p>
+                <div class="shipping-price">€5,00</div>
+            </div>
+
+            <div class="shipping-card recommended">
+                <div class="popular-badge">MÁS POPULAR</div>
+                <div class="shipping-icon">💶</div>
+                <h3 class="shipping-method">Pago Contrareembolso a Domicilio</h3>
+                <p class="shipping-description">Se paga cuando llega el pedido</p>
+                <div class="shipping-price">€10,00</div>
+            </div>
+
+        </div>
+        <p class="shipping-note">* Los gastos de envío se añaden al total de tu pedido</p>
     </div>
 
     <div class="footer">
@@ -591,18 +705,6 @@
                 card.style.transform = 'translateY(30px)';
                 card.style.transition = 'all 0.6s ease';
                 observer.observe(card);
-            });
-
-            // Efecto de botones de compra
-            document.querySelectorAll('.buy-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    this.innerHTML = '✓ Agregado';
-                    this.style.background = 'linear-gradient(135deg, #00b894, #55a3ff)';
-                    setTimeout(() => {
-                        this.innerHTML = 'Comprar Ahora';
-                        this.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
-                    }, 2000);
-                });
             });
 
             // Efecto parallax suave en el header (solo en desktop)
